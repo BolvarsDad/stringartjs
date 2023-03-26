@@ -18,15 +18,14 @@ const degrees_to_radians = (degrees, precision = 2) => {
 
 // (x,y) = (rcos(θ), rsin(θ))
 // for n points on the circle, they need to be spaced 2pi/n units apart.
-const circle_point = (angle, radius) => {
+const circle_point = (angle_deg, radius) => {
     return {
-        px: center_x + radius * Math.cos(degrees_to_radians(angle)),
-        py: center_y + radius * Math.sin(degrees_to_radians(angle))
+        px: center_x + radius * Math.cos(degrees_to_radians(angle_deg)),
+        py: center_y + radius * Math.sin(degrees_to_radians(angle_deg))
     };
 };
 
-let angle = 0;
-for (let i = 0; i < degrees_to_radians(2 * Math.PI / point_count); ++i) {
+for (let i = 0; i < degrees_to_radians(360 + i); i += degrees_to_radians(360 / point_count)) {
     points.push(circle_point(i, radius));
 }
 
@@ -43,4 +42,10 @@ ctx.closePath();
 
 ctx.fillStyle = "Gray";
 
+for (let i = 0; i < point_count; ++i) {
+    ctx.beginPath();
+    ctx.arc(points[i].px, points[i].py, 5, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.closePath();
+}
 console.log(points);
