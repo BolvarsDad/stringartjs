@@ -25,8 +25,8 @@ const circle_point = (angle_deg, radius) => {
     };
 };
 
-for (let i = 0; i < degrees_to_radians(360 + i); i += degrees_to_radians(360 / point_count)) {
-    points.push(circle_point(i, radius));
+for (let angle_deg = 0; angle_deg < 360; angle_deg += 360 / point_count) {
+    points.push(circle_point(angle_deg, radius));
 }
 
 // background color
