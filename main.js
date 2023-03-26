@@ -2,6 +2,11 @@ const canvas = document.querySelector(".canvas");
 const ctx = canvas.getContext("2d");
 const SIZE = 1000;
 
+const circle_point = (angle_rad, radius) => ({
+    x: (canvas.width / 2) + radius + Math.cos(angle_rad),
+    y: (canvas.height / 2) + radius + Math.sin(angle_rad),
+});
+
 function mk_circle_points(radius, point_count) {
     let points = [];
 
@@ -19,18 +24,21 @@ function init_canvas() {
 }
 
 function draw_circle_outline(radius) {
-    ctx.fillStyle = "Gray";
+    ctx.strokeStyle = "Gray";
+
     ctx.beginPath();
-    ctx.arc(canvas.width / 2, canvas.height / 2, radius, 0, TAU);
+    ctx.arc(canvas.width / 2, canvas.height / 2, radius, 0, 2 * Math.PI);
     ctx.stroke();
+
     ctx.closePath();
 }
 
 function draw_circle_points(points) {
     ctx.fillStyle = "Gray";
+
     points.forEach(function(point) {
         ctx.beginPath();
-        ctx.arc(point.x, point.y, 5, 0, TAU);
+        ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI);
         ctx.fill();
         ctx.closePath();
     });
