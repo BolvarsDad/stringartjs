@@ -10,7 +10,7 @@ const center_y = canvas.height / 2;
 
 const radius = 450;
 const points = [];
-const point_count = 10;
+const point_count = 100;
 
 const degrees_to_radians = (degrees, precision = 2) => {
     return degrees * Math.PI / 180;
@@ -29,29 +29,33 @@ for (let angle_deg = 0; angle_deg < 360; angle_deg += 360 / point_count) {
     points.push(circle_point(angle_deg, radius));
 }
 
-function draw_points(point_count) {
-    for (let i = 0; i < point_count; ++i) {
-        ctx.beginPath();
+function init_canvas() {
+    canvas.width = SIZE;
+    canvas.height = SIZE;
 
-        ctx.arc(points[i].px, points[i].py, 7, 0, 2 * Math.PI);
-        ctx.stroke();
-        ctx.fill();
-
-        ctx.closePath();
-    }
+    ctx.fillStyle = "White";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-// background color
-ctx.globalCompositeOperation = "destination-under";
-ctx.fillStyle = "White";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+function draw_circle_outline() {
+    ctx.fillStyle = "Gray";
+    ctx.beginPath();
+    ctx.arc(center_x, center_y, radius, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.closePath();
+}
 
-// main circle
-ctx.beginPath();
-ctx.arc(center_x, center_y, radius, 0, 2 * Math.PI);
-ctx.stroke();
-ctx.closePath();
+function draw_circle_points(points) {
+    ctx.fillStyle = "Gray";
 
-ctx.fillStyle = "Gray";
+    points.forEach(function(point) {
+        ctx.beginPath();
+        ctx.arc(point.px, point.py, 5, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.closePath();
+    });
+}
 
-draw_points(point_count);
+init_canvas();
+draw_circle_outline();
+draw_circle_points(points);
