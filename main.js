@@ -13,7 +13,7 @@ const points = [];
 const point_count = 10;
 
 const degrees_to_radians = (degrees, precision = 2) => {
-    return parseFloat(((parseFloat(degrees) * Math.PI) / 180).toFixed(precision));
+    return degrees * Math.PI / 180;
 };
 
 // (x,y) = (rcos(θ), rsin(θ))
@@ -29,6 +29,18 @@ for (let angle_deg = 0; angle_deg < 360; angle_deg += 360 / point_count) {
     points.push(circle_point(angle_deg, radius));
 }
 
+function draw_points(point_count) {
+    for (let i = 0; i < point_count; ++i) {
+        ctx.beginPath();
+
+        ctx.arc(points[i].px, points[i].py, 7, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.fill();
+
+        ctx.closePath();
+    }
+}
+
 // background color
 ctx.globalCompositeOperation = "destination-under";
 ctx.fillStyle = "White";
@@ -42,10 +54,4 @@ ctx.closePath();
 
 ctx.fillStyle = "Gray";
 
-for (let i = 0; i < point_count; ++i) {
-    ctx.beginPath();
-    ctx.arc(points[i].px, points[i].py, 5, 0, 2 * Math.PI);
-    ctx.stroke();
-    ctx.closePath();
-}
-console.log(points);
+draw_points(point_count);
