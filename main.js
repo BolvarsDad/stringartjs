@@ -2,7 +2,7 @@ const canvas = document.querySelector(".canvas");
 const ctx = canvas.getContext("2d");
 const SIZE = 1000;
 
-canvas.width  = SIZE;
+canvas.width = SIZE;
 canvas.height = SIZE;
 
 const center_x = canvas.width / 2;
@@ -30,9 +30,6 @@ for (let angle_deg = 0; angle_deg < 360; angle_deg += 360 / point_count) {
 }
 
 function init_canvas() {
-    canvas.width = SIZE;
-    canvas.height = SIZE;
-
     ctx.fillStyle = "White";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
@@ -46,7 +43,7 @@ function draw_circle_outline() {
 }
 
 function draw_circle_points(points) {
-    ctx.fillStyle = "Gray";
+    ctx.strokeStyle = "Gray";
 
     points.forEach(function(point) {
         ctx.beginPath();
