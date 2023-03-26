@@ -5,8 +5,9 @@ const TAU = 2 * Math.PI;
 
 let points;
 
+// (x, y) = (rsin(θ), rcos(θ))
 const circle_point = (angle_rad, radius) => ({
-    x: (canvas.width / 2) + radius * Math.cos(angle_rad),
+    x: (canvas.width / 2)  + radius * Math.cos(angle_rad),
     y: (canvas.height / 2) + radius * Math.sin(angle_rad),
 });
 
@@ -20,7 +21,7 @@ function mk_circle_points(radius, point_count) {
 }
 
 function init_canvas() {
-    canvas.width = SIZE;
+    canvas.width  = SIZE;
     canvas.height = SIZE;
     ctx.fillStyle = "White";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -48,6 +49,9 @@ function draw_circle_points(points) {
 }
 
 init_canvas();
-points = mk_circle_points(450, 100);
+points = mk_circle_points(450, 200);
 draw_circle_outline(450);
 draw_circle_points(points);
+
+let path = new Path2D;
+let paths = [];
