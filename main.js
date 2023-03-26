@@ -2,57 +2,41 @@ const canvas = document.querySelector(".canvas");
 const ctx = canvas.getContext("2d");
 const SIZE = 1000;
 
-canvas.width = SIZE;
-canvas.height = SIZE;
+function mk_circle_points(radius, point_count) {
+    let points = [];
 
-const center_x = canvas.width / 2;
-const center_y = canvas.height / 2;
+    for (let angle_rad = 0; angle_rad < 2 * Math.PI; angle_rad += 2 * Math.PI / point_count)
+        points.push(circle_point(angle_rad, radius));
 
-const radius = 450;
-const points = [];
-const point_count = 100;
-
-const degrees_to_radians = (degrees, precision = 2) => {
-    return degrees * Math.PI / 180;
-};
-
-// (x,y) = (rcos(θ), rsin(θ))
-// for n points on the circle, they need to be spaced 2pi/n units apart.
-const circle_point = (angle_deg, radius) => {
-    return {
-        px: center_x + radius * Math.cos(degrees_to_radians(angle_deg)),
-        py: center_y + radius * Math.sin(degrees_to_radians(angle_deg))
-    };
-};
-
-for (let angle_deg = 0; angle_deg < 360; angle_deg += 360 / point_count) {
-    points.push(circle_point(angle_deg, radius));
+    return points;
 }
 
 function init_canvas() {
+    canvas.width = SIZE;
+    canvas.height = SIZE;
     ctx.fillStyle = "White";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-function draw_circle_outline() {
+function draw_circle_outline(radius) {
     ctx.fillStyle = "Gray";
     ctx.beginPath();
-    ctx.arc(center_x, center_y, radius, 0, 2 * Math.PI);
+    ctx.arc(canvas.width / 2, canvas.height / 2, radius, 0, TAU);
     ctx.stroke();
     ctx.closePath();
 }
 
 function draw_circle_points(points) {
-    ctx.strokeStyle = "Gray";
-
+    ctx.fillStyle = "Gray";
     points.forEach(function(point) {
         ctx.beginPath();
-        ctx.arc(point.px, point.py, 5, 0, 2 * Math.PI);
+        ctx.arc(point.x, point.y, 5, 0, TAU);
         ctx.fill();
         ctx.closePath();
     });
 }
 
+let points = mk_circle_points(450, 100);
 init_canvas();
-draw_circle_outline();
+draw_circle_outline(450);
 draw_circle_points(points);
