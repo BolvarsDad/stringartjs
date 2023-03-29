@@ -11,6 +11,13 @@ const circle_point = (angle_rad, radius) => ({
     y: (canvas.height / 2) + radius * Math.sin(angle_rad),
 });
 
+function init_canvas() {
+    canvas.width  = SIZE;
+    canvas.height = SIZE;
+    ctx.fillStyle = "White";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
 function mk_circle_points(radius, point_count) {
     let points = [];
 
@@ -18,13 +25,6 @@ function mk_circle_points(radius, point_count) {
         points.push(circle_point(angle_rad, radius));
 
     return points;
-}
-
-function init_canvas() {
-    canvas.width  = SIZE;
-    canvas.height = SIZE;
-    ctx.fillStyle = "White";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function draw_circle_outline(radius) {
@@ -53,5 +53,4 @@ points = mk_circle_points(450, 200);
 draw_circle_outline(450);
 draw_circle_points(points);
 
-let path = new Path2D;
-let paths = [];
+console.log(points[0]);
